@@ -31,7 +31,7 @@ public class EsferaJugador : MonoBehaviour {
 
     bool rebote = false;
 
-    public    bool dead = false;
+    public bool dead = false;
 
     public void desactivarTrail()
     {
@@ -49,6 +49,7 @@ public class EsferaJugador : MonoBehaviour {
 
     void InicializarJugador()
     {
+        if (anim != null) anim.SetTrigger("Vivo");
         //Aplicar Skin
         //ReiniciarVida
     }
@@ -132,6 +133,22 @@ public class EsferaJugador : MonoBehaviour {
 
     }
 
+    public void MuerteExplosiva()
+    {
+        if (anim != null)
+        {
+            anim.SetTrigger("Muerte Explosiva");
+            //rb.gravityScale = 0;
+        }
+
+        StartCoroutine(Espera(1));
+    }
+
+    IEnumerator Espera(float t)
+    {
+        yield return new WaitForSeconds(t);
+        Dead();
+    }
 
 
 }
