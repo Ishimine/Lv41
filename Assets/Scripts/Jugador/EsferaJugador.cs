@@ -45,15 +45,27 @@ public class EsferaJugador : MonoBehaviour {
     private void Start()
     {
         InicializarJugador();
+        dead = false;
     }
 
     void InicializarJugador()
     {
-        if (anim != null) anim.SetTrigger("Vivo");
+        if (anim != null) anim.SetBool("Vivo",true);
+        trail.SetActive(true);
+
         //Aplicar Skin
         //ReiniciarVida
     }
 
+    public void RevivirJugador()
+    {
+        col.isTrigger = false;
+
+        rb.simulated = true;
+        rb.isKinematic = false;
+        dead = false;
+        if (anim != null) anim.SetBool("Vivo", true);
+    }
 
     public void EnMeta()
     {
@@ -135,12 +147,18 @@ public class EsferaJugador : MonoBehaviour {
 
     public void MuerteExplosiva()
     {
+        if (dead) return;
         if (anim != null)
         {
             anim.SetTrigger("Muerte Explosiva");
+            anim.SetBool("Vivo", false);
             //rb.gravityScale = 0;
         }
-
+        rb.isKinematic = false;
+        rb.velocity = Vector2.zero;
+        rb.angularVelocity = 0;
+        dead = true;
+        trail.SetActive(false);
         StartCoroutine(Espera(1));
     }
 

@@ -15,14 +15,12 @@ public class BloqueCañon : MonoBehaviour {
 
     private void Awake()
     {
-        print("Awake");
         CalcularTiempo();
         AplicarAtributosMunicion();
     }
 
     private void Start()
     {
-        print("Start");
 
         IniciarSecuencia();
     }

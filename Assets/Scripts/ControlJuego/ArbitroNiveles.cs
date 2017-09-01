@@ -130,17 +130,42 @@ private void ActObjetivos()
 {
     objetivos = objetivosAux;
 }*/
+    public void DesbloquearNiveles()
+    {
+        for (int i = 0; i < recordsAux.Length; i++)
+        {
+            recordsAux[i].idNivel = 0;
+        }
+        GuardarRecords();
+    }
 
+    public static int GetEstadoNivel(int x)
+    {
+       return instance.recordsAux[x].idNivel;
+    }
+
+    public static void DesbloquearNivel(int x)
+    {
+        if (instance.recordsAux[x].idNivel == 1) return;
+        else        instance.recordsAux[x].idNivel = 0;
+    }
+
+    public static void SetEstadoNivel(int id, int estado)
+    {
+        instance.recordsAux[id].idNivel = estado;
+        instance.GuardarRecords();
+    }
 
     public void ResetRecords()
     {
         for(int i = 0; i < recordsAux.Length; i++ )
         {
-            recordsAux[i].idNivel = i + 1;
+            recordsAux[i].idNivel = -1;
             recordsAux[i].barras = 999;
             recordsAux[i].muertes = 999;
             recordsAux[i].tiempo = 999;
         }
+        recordsAux[0].idNivel = 0;
         GuardarRecords();
     }
 }

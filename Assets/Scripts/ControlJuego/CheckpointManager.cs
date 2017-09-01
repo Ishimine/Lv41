@@ -7,7 +7,8 @@ public class CheckpointManager : MonoBehaviour {
 
     static int muertes = 0;
 
-    public GameObject[] puntos;
+    public static CheckpointManager instance;
+    public CheckPoint[] puntos;
     public static int CheckPointActual = -1;
     public static EsferaJugador player;
 
@@ -21,7 +22,22 @@ public class CheckpointManager : MonoBehaviour {
 
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else { Destroy(this.gameObject); }
         SceneManager.sceneLoaded += NivelCargado;
+    }
+
+    public static void Reiniciar()
+    {
+        foreach(CheckPoint cp in instance.puntos)
+        {
+            cp.PuntoDesactivado();
+        }
+        CheckPointActual = -1;
+        instance.LastCheckPoint();
+        muertes = 0;
+
+        if (muerte != null) muerte(0);
     }
 
     void NivelCargado(Scene scene, LoadSceneMode mode)
@@ -32,13 +48,18 @@ public class CheckpointManager : MonoBehaviour {
             CheckPointActual = -1;
             player = FindObjectOfType<EsferaJugador>();
             player.muerto += LastCheckPoint;
-            puntos = GameObject.FindGameObjectsWithTag("CP");
-            
+            puntos = FindObjectsOfType<CheckPoint>();            
         }
     }
 
-    public void LastCheckPoint()
+    public static void UsarUltimoCP()
     {
+        instance.LastCheckPoint();
+    }
+
+        public void LastCheckPoint()
+    {
+
         player.trail.SetActive(false);
         muertes++;
         if (muerte != null) muerte(muertes);
@@ -56,8 +77,16 @@ public class CheckpointManager : MonoBehaviour {
         DirectorGravedad.ReestablecerGravedadInstantaneo();
         //player.activarTrail();
         player.trail.SetActive(true);
-
         player.dead = false;
+        player.RevivirJugador();
+
+        Camera.main.transform.position = target - Vector3.forward * Camera.main.transform.position.z;
+
+        Camera.main.GetComponent<CameraFollow>().SetCenter(target);
+
+
+        TouchControl.BorrarBarras();
+
 
     }
 

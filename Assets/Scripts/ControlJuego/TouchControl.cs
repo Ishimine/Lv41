@@ -96,6 +96,12 @@ public class TouchControl : MonoBehaviour
         return barrasCreadas;
     }
 
+    public static void Reiniciar()
+    {
+        BorrarBarras();
+    }
+
+
     void Awake()
     {
         if (instance != null)
@@ -129,6 +135,21 @@ public class TouchControl : MonoBehaviour
     void NivelCargado(Scene scene, LoadSceneMode mode)
     {
         NivelCargado();
+    }
+
+    public static void BorrarBarras()
+    {
+        barrasCreadas = 0;
+        if (instance.bCreada != null) instance.bCreada(barrasCreadas);
+        instance.listaT.Clear();
+        //instance.OcultarBarras();
+
+        GameObject[] barras = GameObject.FindGameObjectsWithTag("BarraJugador");
+
+        foreach(GameObject g in barras)
+        {
+            Destroy(g);
+        }
     }
 
     public void OcultarBarras()
@@ -170,7 +191,7 @@ public class TouchControl : MonoBehaviour
 
     void Update()
     {
-        if (GameController.enMenu || GameController.enPausa || !GameController.swipeActivo)
+        if (GameController.enMenu || GameController.enPausa || !GameController.swipeActivo )
             return;
 
 #if UNITY_ANDROID
@@ -383,6 +404,8 @@ public class TouchControl : MonoBehaviour
 
     private void touchEnd(int fingerId, Vector2 actPos)
     {
+        if (listaT.Count == 0)
+            return;
         //Obtener t de la lista
         idTouch t = listaT.Find(x => x.fingerId == fingerId);
         listaT.Remove(t);       //eliminamos de la lista

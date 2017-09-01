@@ -60,7 +60,8 @@ public class SelectorNivel : MonoBehaviour
 
     public static void ReiniciarNivel()
     {
-        CargarNivel(SceneManager.GetActiveScene().buildIndex);
+        //CargarNivel(SceneManager.GetActiveScene().buildIndex);
+        GameController.ReiniciarNivel();
     }
 
 

@@ -13,7 +13,7 @@ public class canvasScript : MonoBehaviour {
    public static canvasScript instance;
 
     public pantallaFinNivel pFinDeNivel;
-
+    public UI_MenuNiveles menuNiveles;
     
 
 
@@ -30,6 +30,12 @@ public class canvasScript : MonoBehaviour {
             Destroy(eventSys);
             Destroy(this.gameObject);
         }
+    }
+
+
+    public void RevisarEstadoNiveles()
+    {
+        menuNiveles.RevisarEstadoNiveles();
     }
 
     public void Pausa(bool x)

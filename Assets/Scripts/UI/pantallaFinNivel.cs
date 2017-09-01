@@ -74,12 +74,35 @@ public class pantallaFinNivel : MonoBehaviour {
         m = CheckpointManager.getMuertes();
         //  muertes.text = m.ToString();
         muertes.text = "0";
+
+
         ActualizarObjetivo();                           //Extrae los objetivos del nivel
         ExtraerRecord();                             //Actualiza los records del nivel
         ActivarContadores();
         GuardarRecord();
+
+        int x = SceneManager.GetActiveScene().buildIndex;
+        ArbitroNiveles.DesbloquearNivel(x);
+        ArbitroNiveles.DesbloquearNivel(++x);
+        ArbitroNiveles.DesbloquearNivel(++x);
+
+        ActualizarEstadoDeNivel();
     }
 
+    void ActualizarEstadoDeNivel()
+    {
+        if(recordActual.barras <= objetivoActual.barras &&
+           recordActual.tiempo <= objetivoActual.tiempo &&
+           recordActual.muertes <= objetivoActual.muertes)
+        {
+            ArbitroNiveles.SetEstadoNivel(SceneManager.GetActiveScene().buildIndex-1, 1);
+        }
+    }
+
+
+    /// <summary>
+    /// Aplica records antiguos en los contadores y los activa las animaciones
+    /// </summary>
     void ActivarContadores()
     {
         contadorBarras.Iniciar(b, objetivoActual.barras, recordActual.barras);

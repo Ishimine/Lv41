@@ -13,15 +13,19 @@ public class Contador : MonoBehaviour
 
     public Text txt;
     public Image img;
+    public Image borde;
 
     public Color cNormal = Color.white;
     public Color cDesactivado = Color.gray;
     public Color cActivado = Color.yellow;
+    public Color cInvisible = Color.clear;
 
     public Rigidbody2D PopTxt;
 
     public void Iniciar(float act, float recordObjetivo, float recordActual)
     {
+        borde.color = cInvisible;
+        txt.color = Color.white;
         desactivado = false;
         if (recordActual <= recordObjetivo)
         {
@@ -56,10 +60,9 @@ public class Contador : MonoBehaviour
 
     public void ResetearColor()
     {
-        txt.color = cActivado;
+        txt.color = Color.white;
         img.color = cNormal;
     }
-
 
 
     public void AplicarColorDorado()
@@ -136,7 +139,10 @@ public class Contador : MonoBehaviour
 
     IEnumerator AnimarIconoActivado()
     {
-  //      Debug.Log("Record roto ahora mismo");
+        //      Debug.Log("Record roto ahora mismo");
+        borde.color = cActivado;
+        txt.color = Color.yellow;
+
         float t = 0;
         Vector3 escalaOrig = img.gameObject.transform.localScale;
         Vector3 escalaObjetivo = escalaOrig * 1.2f;

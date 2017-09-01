@@ -52,6 +52,10 @@ public class CameraFollow : MonoBehaviour
         }
     }
     
+    public void SetCenter(Vector3 x)
+    {
+        focusArea.centre = x;
+    }
 
     void NivelCargado()
     {
@@ -149,7 +153,14 @@ public class CameraFollow : MonoBehaviour
         focusPosition.y = Mathf.SmoothDamp(transform.position.y, focusPosition.y, ref smoothVelocityY, verticalSmoothTime);
         focusPosition += Vector2.right * currentLookAheadX;
 
-        transform.position = (Vector3)focusPosition + Vector3.forward * -10;
+        Vector3 aux = (Vector3)focusPosition + Vector3.forward * -10;
+
+
+        if (float.IsNaN(aux.x)) aux = new Vector3(0, aux.y, aux.z);
+        if (float.IsNaN(aux.y)) aux = new Vector3(aux.x, 0, aux.z);
+        if (float.IsNaN(aux.z)) aux = new Vector3(aux.x, aux.y, 0);
+
+        transform.position = aux;
 
         if (zoomDinamico) ActualizarZoom();
     }

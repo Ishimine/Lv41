@@ -147,7 +147,7 @@ public class GameController : MonoBehaviour {
         tiempo = 0;
         CrearPartidaMeta();
         Time.timeScale = 0;
-        canvasScript.instance.EnJuego();
+
         if (PreSesionDeJuego != null)
             PreSesionDeJuego();
         StartCoroutine(CuentaRegresivaPreSesionDeJuego());
@@ -157,7 +157,21 @@ public class GameController : MonoBehaviour {
     {
         enPausa = true;
         Pausa();
-        SelectorNivel.ReiniciarNivel();
+        CheckpointManager.Reiniciar();
+        //canvasScript.instance.EnJuego();
+        TouchControl.Reiniciar();
+
+
+        swipeActivo = true;
+        inGame = false;
+        enPausa = false;
+        tiempo = 0;
+        if (instance.actTiempo != null) instance.actTiempo(0);
+        Time.timeScale = 0;
+
+        if (PreSesionDeJuego != null)
+            PreSesionDeJuego();
+        instance.StartCoroutine(instance.CuentaRegresivaPreSesionDeJuego());
     }
 
     public static void Pausa()

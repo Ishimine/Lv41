@@ -21,11 +21,15 @@ public class UI_MenuNiveles : MonoBehaviour
     public GameObject botonAntPagina;
 
     public GameObject contenedorNiveles;
- 
+
+    private void Awake()
+    {
+        botones = FindObjectsOfType<BotonDeNivel>();
+    }
 
     void CrearBotones()
     {
-        if (transform.childCount > 0)
+        if (contenedorNiveles.transform.childCount > 0)
             DestruirHijos();
         botones = new BotonDeNivel[BotonesPorPagina];
 
@@ -42,7 +46,7 @@ public class UI_MenuNiveles : MonoBehaviour
     void DestruirHijos()
     {
         int a = contenedorNiveles.transform.childCount-1;
-        for (int i = a; i >= 0; i--)
+        for (int i = a; i >= 0; --i)
         {
             DestroyImmediate(contenedorNiveles.transform.GetChild(i).gameObject);
         }
@@ -107,9 +111,19 @@ public class UI_MenuNiveles : MonoBehaviour
     }
 
 
+    public void RevisarEstadoNiveles()
+    {
+        foreach(BotonDeNivel b in botones)
+        {
+            b.RevisarEstadoNivel();
+        }
+    }
+
+
 #if UNITY_EDITOR
     private void OnValidate()
     {
+       // ActualizarBotones();
     }
 #endif
 }

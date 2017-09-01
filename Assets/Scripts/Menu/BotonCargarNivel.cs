@@ -23,6 +23,6 @@ public class BotonCargarNivel : MonoBehaviour {
 
     public void ReiniciarNivel()
     {
-        SelectorNivel.ReiniciarNivel();
+        GameController.ReiniciarNivel();
     }
 }

@@ -21,6 +21,19 @@ public class CheckPoint : MonoBehaviour {
         ActivarColor();
     }
 
+    public void PuntoDesactivado()
+    {
+        //GAtillar animacion de activacio
+        anim.SetBool("Activado", false);
+        activado = false;
+        DesactivarColor();
+    }
+
+    void DesactivarColor()
+    {
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
     void ActivarColor()
     {
         GetComponent<SpriteRenderer>().color = Color.cyan;
