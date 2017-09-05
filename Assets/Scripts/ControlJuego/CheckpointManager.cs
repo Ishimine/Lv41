@@ -66,7 +66,10 @@ public class CheckpointManager : MonoBehaviour {
         Vector3 target;
 
         if (CheckPointActual != -1)
-        { target = puntos[CheckPointActual].transform.position; }
+        {
+            target = puntos[CheckPointActual].transform.position;
+
+        }
         else
         { target = FindObjectOfType<GameController>().pPartida.transform.position; }
         TouchControl.instance.OcultarBarras();
