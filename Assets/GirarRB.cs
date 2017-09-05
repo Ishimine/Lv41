@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class GirarRB : MonoBehaviour {
 
-    public float velocidadGiro = 500;
+    public bool invertir;
+    public float velocidadGiro = 180;
+
 
     public Rigidbody2D rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        if(invertir)
+            rb.angularVelocity = velocidadGiro;
+        else
+            rb.angularVelocity = -velocidadGiro;
     }
+
+
 
     public void FixedUpdate()
     {
-        rb.angularVelocity = velocidadGiro;
     }
 
 

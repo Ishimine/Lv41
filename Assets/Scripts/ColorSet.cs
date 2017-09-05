@@ -50,11 +50,11 @@ public class ColorSet : MonoBehaviour {
 
 
 #if UNITY_EDITOR
-    private void OnValidate()
+   /* private void OnValidate()
     {
         if(Recursos.instance != null)
             PedirColor();
-    }
+    }*/
 #endif
 
     private void OnDestroy()
