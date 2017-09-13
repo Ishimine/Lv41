@@ -11,6 +11,7 @@ public class CheckpointManager : MonoBehaviour {
     public CheckPoint[] puntos;
     public static int CheckPointActual = -1;
     public static EsferaJugador player;
+    Vector3 inicial;
 
     public delegate void act(int i);
     public static act muerte;
@@ -34,18 +35,19 @@ public class CheckpointManager : MonoBehaviour {
             cp.PuntoDesactivado();
         }
         CheckPointActual = -1;
-        instance.LastCheckPoint();
         muertes = 0;
-
         if (muerte != null) muerte(0);
+        instance.CheckPointNormal(instance.inicial);
+
     }
 
     void NivelCargado(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex != 0)
         {
+            inicial = FindObjectOfType<GameController>().pPartida.transform.position;
             muertes = 0;
-            CheckPointActual = -1;
+            CheckPointActual = -1;            
             player = FindObjectOfType<EsferaJugador>();
             player.muerto += LastCheckPoint;
             puntos = FindObjectsOfType<CheckPoint>();            
@@ -68,39 +70,44 @@ public class CheckpointManager : MonoBehaviour {
         if (CheckPointActual != -1)
         {
             target = puntos[CheckPointActual].transform.position;
-
+            CheckPointNormal(target);
         }
         else
-        { target = FindObjectOfType<GameController>().pPartida.transform.position; }
+        {
+            GameController.ReiniciarNivel();
+
+        }
+    }
+
+    public void CheckPointOriginal(Vector3 target)
+    {
+        GameController.ReiniciarContadores();
+        CheckPointNormal(target);
+    }
+
+    public void CheckPointNormal(Vector3 target)
+    {
         TouchControl.instance.OcultarBarras();
-        player.transform.position = target;        
+        player.transform.position = target;
         //Camera.main.GetComponent<SeguirObjetivo>().PosicionarCamara(target);
-        player.GetComponent<Rigidbody2D>().velocity = Physics2D.gravity.normalized*-1;
+        player.GetComponent<Rigidbody2D>().velocity = Physics2D.gravity.normalized * -1;
         player.GetComponent<Rigidbody2D>().angularVelocity = 0;
         DirectorGravedad.ReestablecerGravedadInstantaneo();
         //player.activarTrail();
         player.trail.SetActive(true);
         player.dead = false;
         player.RevivirJugador();
-
         Camera.main.transform.position = target - Vector3.forward * Camera.main.transform.position.z;
-
-        Camera.main.GetComponent<CameraFollow>().SetCenter(target);
-
-
+       // Camera.main.GetComponent<CameraFollow>().SetCenter(target);
+        
         TouchControl.BorrarBarras();
-
-
     }
 
     public static void ActualizarPunto(int i)
     {
-        if (i > CheckPointActual)
-        {
-            CheckPointActual = i;
-            Debug.Log("CP Actualizado a " + i);
-        }
-
+        CheckPointActual = i;
+        Debug.Log("CP Actualizado a " + i);
+        
     }
 
 

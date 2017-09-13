@@ -99,6 +99,8 @@ public class TouchControl : MonoBehaviour
     public static void Reiniciar()
     {
         BorrarBarras();
+        barrasCreadas = 0;
+        if (instance.bCreada != null) instance.bCreada(0);
     }
 
 

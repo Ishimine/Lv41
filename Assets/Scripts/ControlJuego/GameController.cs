@@ -14,7 +14,7 @@ public class GameController : MonoBehaviour {
     public Transform pMeta;
     public static GameController instance;
 
-    public static float tiempo;
+    [SerializeField] public static float tiempo;
 
     static public bool enPausa;
     static public bool inGame;
@@ -153,6 +153,22 @@ public class GameController : MonoBehaviour {
         StartCoroutine(CuentaRegresivaPreSesionDeJuego());
     }
 
+    public static void ReiniciarContadores()
+    {
+        Debug.Log("ReiniciandoContadores");
+        CheckpointManager.Reiniciar();
+        TouchControl.Reiniciar();
+        tiempo = 0;
+        if (instance.actTiempo != null) instance.actTiempo(tiempo);
+        print("Tiempo:" + tiempo);
+
+        enPausa = false;
+        inGame = false;
+        if(InicioSesionDeJuego != null)
+        {
+            InicioSesionDeJuego();
+        }
+    }
     public static void ReiniciarNivel()
     {
         enPausa = true;
@@ -168,7 +184,6 @@ public class GameController : MonoBehaviour {
         tiempo = 0;
         if (instance.actTiempo != null) instance.actTiempo(0);
         Time.timeScale = 0;
-
         if (PreSesionDeJuego != null)
             PreSesionDeJuego();
         instance.StartCoroutine(instance.CuentaRegresivaPreSesionDeJuego());

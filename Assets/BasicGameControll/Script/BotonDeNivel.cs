@@ -21,11 +21,14 @@ public class BotonDeNivel : MonoBehaviour
     public Color colorCompletado = Color.yellow;
     public Color colorDesbloqueado;
 
+    Button boton;
+
     float tOnda = .5f;
 
 
     private void Start()
     {
+        boton = GetComponent<Button>();
         NivelBloqueado();
     }
 
@@ -122,6 +125,8 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelBloqueado()
     {
+        boton.interactable = false;
+
         onda.color = new Color(1,1,1,0);
         img.color = colorBloqueado;
         txt.color = Color.black;
@@ -129,6 +134,7 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelDesbloqueado()
     {
+        boton.interactable = true;
         img.color = colorDesbloqueado;
         StartCoroutine(FXonda());
         txt.color = Color.white;
@@ -137,6 +143,7 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelCompletado()
     {
+        boton.interactable = true;
         img.color = colorCompletado;
         StartCoroutine(FXonda());
         txt.color = Color.white;
