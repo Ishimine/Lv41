@@ -153,6 +153,13 @@ public class Contador : MonoBehaviour
         {
             tAux = t / .7f;
 
+            if (tAux < .5f)
+                gameObject.transform.rotation = Quaternion.Euler(0, Mathf.Lerp(0, 180, tAux),0);
+            else
+                gameObject.transform.rotation = Quaternion.Euler(0, Mathf.Lerp(180, 0, tAux), 0);
+
+
+
             if (tAux < .8)
             {
                 gameObject.transform.localScale = Vector3.Lerp(escalaOrig, escalaObjetivo, tAux / .8f);

@@ -125,6 +125,9 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelBloqueado()
     {
+        animacion.girar = false;
+        animacion.tamanio = false;
+        transform.localScale = Vector3.one;
         transform.rotation = Quaternion.identity;
         animacion.tamanio = false;
 
@@ -137,6 +140,7 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelDesbloqueado()
     {
+        transform.localScale = Vector3.one;
         animacion.tamanio = true;
         boton.interactable = true;
         onda.color = colorDesbloqueado;
@@ -148,6 +152,7 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelCompletado()
     {
+        transform.localScale = Vector3.one * 1.2f;
         transform.rotation = Quaternion.identity;
         animacion.tamanio = false;
         animacion.girar = false;
@@ -155,7 +160,7 @@ public class BotonDeNivel : MonoBehaviour
         onda.color = colorCompletado;
         img.color = colorCompletado;
         StartCoroutine(FXonda());
-        txt.color = Color.white;
+        txt.color = colorDesbloqueado;
 
     }
 
