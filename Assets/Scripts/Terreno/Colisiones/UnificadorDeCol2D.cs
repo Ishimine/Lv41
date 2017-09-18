@@ -29,6 +29,7 @@ public class UnificadorDeCol2D : MonoBehaviour
             {
                 col.gameObject.AddComponent<PolygonCollider2D>();
             }
+            
         }
     }
     public void EliminarPolygonHijos()
@@ -45,6 +46,7 @@ public class UnificadorDeCol2D : MonoBehaviour
             }
         }
     }
+
 
 
     public void DeshabilitarPolygonHijos()
@@ -81,13 +83,15 @@ public class UnificadorDeCol2D : MonoBehaviour
         CreateLevelCollider(UniteCollisionPolygons(ExtraerPoligonosEnHijos()));
 
 
-        PropiedadesMat prop = GetComponentInChildren<PropiedadesMat>();
+        //PropiedadesMat prop = GetComponentInChildren<PropiedadesMat>();
+        PropiedadesMat prop = transform.GetChild(0).GetComponent<PropiedadesMat>();
         if (prop != null)
         {
             PropiedadesMat propLocal = GetComponent<PropiedadesMat>();
             if (propLocal == null)
                  propLocal = gameObject.AddComponent<PropiedadesMat>();
             propLocal.indiceRebote = prop.indiceRebote;           
+            propLocal.c = prop.c;
         }
     }
 

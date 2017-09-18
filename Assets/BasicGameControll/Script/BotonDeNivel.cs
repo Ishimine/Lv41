@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BotonDeNivel : MonoBehaviour
 {
 
-
+    public BotonAnimacionContinua animacion;
     public enum estadoNivel {Bloqueado,Desbloqueado,Completado}
     public estadoNivel estado;
     public Image onda;
@@ -125,6 +125,9 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelBloqueado()
     {
+        transform.rotation = Quaternion.identity;
+        animacion.tamanio = false;
+
         boton.interactable = false;
 
         onda.color = new Color(1,1,1,0);
@@ -134,7 +137,9 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelDesbloqueado()
     {
+        animacion.tamanio = true;
         boton.interactable = true;
+        onda.color = colorDesbloqueado;
         img.color = colorDesbloqueado;
         StartCoroutine(FXonda());
         txt.color = Color.white;
@@ -143,7 +148,11 @@ public class BotonDeNivel : MonoBehaviour
 
     public void NivelCompletado()
     {
+        transform.rotation = Quaternion.identity;
+        animacion.tamanio = false;
+        animacion.girar = false;
         boton.interactable = true;
+        onda.color = colorCompletado;
         img.color = colorCompletado;
         StartCoroutine(FXonda());
         txt.color = Color.white;
@@ -154,7 +163,7 @@ public class BotonDeNivel : MonoBehaviour
     IEnumerator FXonda()
     {
         float t = 0;
-        Color cOrig = Color.white;
+        Color cOrig = onda.color;
         Color transparente = new Color(cOrig.r, cOrig.g, cOrig.b, 0);
         while (t <= 1)
         {

@@ -8,5 +8,6 @@ public class PropiedadesMat : MonoBehaviour {
     /// El tamaño del bloque medido en pixeles/ 100
     /// </summary> 
     public float indiceRebote = 1;
+    public Color c;
    
 }

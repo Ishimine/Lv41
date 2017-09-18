@@ -25,6 +25,9 @@ public class EsferaJugador : MonoBehaviour {
     public delegate void gatillo();
     public event gatillo muerto;
 
+    public ControlParticula particulasImpacto;
+    public int cantParticulas = 30;
+
     public float fRebote = 10;
 
     public Animator anim;
@@ -123,6 +126,13 @@ public class EsferaJugador : MonoBehaviour {
         if (anim != null && animar) anim.SetTrigger("Rebote");
         rebote = true;
         ShakeControl.instance.ActivarShake(ShakeControl.FuerzaShake.Debil);
+
+
+        PropiedadesMat ma = other.gameObject.GetComponent<PropiedadesMat>();
+        particulasImpacto.transform.position = other.contacts[0].point;
+        if (ma != null) particulasImpacto.CambiarColorInicial(ma.c);
+        particulasImpacto.CrearBurst(cantParticulas);
+        
     }
 
     public void LateUpdate()

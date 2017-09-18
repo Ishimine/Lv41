@@ -4,26 +4,30 @@ using UnityEngine;
 
 public class meta : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
-
+    public SpriteRenderer render;
+    public ControlParticula p;
     Vector2 vel;
+    public Color colorFinal;
+
      void OnTriggerEnter2D(Collider2D other)
     {
         if(other.gameObject.tag == "Player")
         {
             if (other.GetComponent<EsferaJugador>().dead)
                 return;
+
             StartCoroutine(CentrarJugador(other.transform));
             other.GetComponent<EsferaJugador>().EnMeta();
             GameController.FinNivel();
+            CambiarColorBorde();
+            if (p != null) p.CrearBurst(1);
+
+
+            //ShakeCam
+            ShakeControl.instance.activado = true;
+            ShakeControl.instance.ActivarShake(ShakeControl.FuerzaShake.Medio);
+            ShakeControl.instance.activado = false;
+
         }
     }
 
@@ -37,7 +41,13 @@ public class meta : MonoBehaviour {
         }
     }
 
-
+    void CambiarColorBorde()
+    {
+        if(render != null)
+        {
+            render.color = colorFinal;
+        }
+    }
 
 
 }

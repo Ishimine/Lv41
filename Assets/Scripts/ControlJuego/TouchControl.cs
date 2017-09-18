@@ -484,6 +484,7 @@ public class TouchControl : MonoBehaviour
         obj.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         obj.SetActive(true);
         barrasCreadas++;
+
         if (bCreada != null) bCreada(barrasCreadas);
 
     }

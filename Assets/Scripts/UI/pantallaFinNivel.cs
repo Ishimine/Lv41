@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class pantallaFinNivel : MonoBehaviour {
 
+    public ControlParticula p;
 
 
    [SerializeField]  DataDeNivel recordActual;

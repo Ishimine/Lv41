@@ -11,6 +11,7 @@ public class Contador : MonoBehaviour
 
     public bool desactivado = false;
 
+   // public Transform pivot;
     public Text txt;
     public Image img;
     public Image borde;
@@ -24,7 +25,7 @@ public class Contador : MonoBehaviour
 
     public void Iniciar(float act, float recordObjetivo, float recordActual)
     {
-        borde.color = cInvisible;
+        borde.color = cNormal;
         txt.color = Color.white;
         desactivado = false;
         if (recordActual <= recordObjetivo)
@@ -154,11 +155,11 @@ public class Contador : MonoBehaviour
 
             if (tAux < .8)
             {
-                img.gameObject.transform.localScale = Vector3.Lerp(escalaOrig, escalaObjetivo, tAux / .8f);
+                gameObject.transform.localScale = Vector3.Lerp(escalaOrig, escalaObjetivo, tAux / .8f);
             }
             else
             {
-                img.gameObject.transform.localScale = Vector3.Lerp(escalaObjetivo, escalaOrig, (tAux-.8f) / .2f);
+                gameObject.transform.localScale = Vector3.Lerp(escalaObjetivo, escalaOrig, (tAux-.8f) / .2f);
             }
             img.color = Color.Lerp(cNormal, cActivado, tAux);
 

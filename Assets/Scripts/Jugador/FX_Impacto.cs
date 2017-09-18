@@ -30,11 +30,11 @@ public class FX_Impacto : MonoBehaviour {
 
     void Start () {
         if(render == null) render = GetComponent<SpriteRenderer>();
-        original = render.color;
     }
 
     private void Awake()
     {
+        original = render.color;
         escalaOriginal = render.transform.localScale;
         escalaMax = render.transform.localScale * aumentoEscala;
     }
@@ -50,6 +50,11 @@ public class FX_Impacto : MonoBehaviour {
         {
             anim.SetTrigger("Activado");
         }
+    }
+
+    private void OnEnable()
+    {
+        Activar();
     }
 
 
