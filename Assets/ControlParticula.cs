@@ -11,6 +11,8 @@ public class ControlParticula : MonoBehaviour {
         if (p == null) p = GetComponent<ParticleSystem>();
     }
 
+
+
     public void CambiarCantidad(int x)
     {
         var main = p.emission;

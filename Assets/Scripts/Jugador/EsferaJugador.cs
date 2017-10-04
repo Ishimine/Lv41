@@ -26,6 +26,7 @@ public class EsferaJugador : MonoBehaviour {
     public event gatillo muerto;
 
     public ControlParticula particulasImpacto;
+    public ControlParticula particulasMuerte;
     public int cantParticulas = 30;
 
     public float fRebote = 10;
@@ -164,6 +165,14 @@ public class EsferaJugador : MonoBehaviour {
             anim.SetBool("Vivo", false);
             //rb.gravityScale = 0;
         }
+        if (particulasMuerte != null)
+        {
+            particulasMuerte.CambiarColorInicial(Recursos.instance.setColorActual.color[2].tono);
+            particulasMuerte.transform.position = transform.position;
+            particulasMuerte.CrearBurst(50);
+        }
+
+        rb.simulated = false;
         rb.isKinematic = false;
         rb.velocity = Vector2.zero;
         rb.angularVelocity = 0;
