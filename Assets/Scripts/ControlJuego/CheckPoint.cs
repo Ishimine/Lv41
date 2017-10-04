@@ -6,7 +6,7 @@ public class CheckPoint : MonoBehaviour {
 
     public int CheckID;
     public bool activado = false;
-
+    public SonidoAlTrigger audio;
     public Animator anim;
 
     public Vector3 direccion;
@@ -19,6 +19,7 @@ public class CheckPoint : MonoBehaviour {
         anim.SetBool("Activado", true);
         activado = true;
         ActivarColor();
+        audio.Desactivar();
     }
 
     public void PuntoDesactivado()

@@ -22,11 +22,12 @@ public class meta : MonoBehaviour {
             CambiarColorBorde();
             if (p != null) p.CrearBurst(1);
 
-
+           // MusicDJ.instance.MedioVolumen();
+            MusicDJ.instance.LowPass(true);
             //ShakeCam
-            ShakeControl.instance.activado = true;
+           // ShakeControl.instance.activado = true;
             ShakeControl.instance.ActivarShake(ShakeControl.FuerzaShake.Medio);
-            ShakeControl.instance.activado = false;
+         //   ShakeControl.instance.activado = false;
 
         }
     }

@@ -123,7 +123,7 @@ public class UI_MenuNiveles : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
-       // ActualizarBotones();
+        //ActualizarBotones();
     }
 #endif
 }

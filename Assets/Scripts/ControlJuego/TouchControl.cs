@@ -483,9 +483,13 @@ public class TouchControl : MonoBehaviour
         obj.transform.localScale = new Vector3(dist, grosorBarra, 1);                          //Aplicamos longitud de la barraT
         obj.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         obj.SetActive(true);
-        barrasCreadas++;
+        /*AudioSource audio = obj.GetComponent<AudioSource>();
+        if(audio != null) audio.Play();
+       */
+        barrasCreadas++; 
 
         if (bCreada != null) bCreada(barrasCreadas);
+
 
     }
 

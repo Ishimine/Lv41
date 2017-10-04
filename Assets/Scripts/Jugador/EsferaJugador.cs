@@ -8,6 +8,8 @@ public class EsferaJugador : MonoBehaviour {
     /// Si es False, solo rebotara contra objetos que tengan el componente PropiedadesMat. Caso contrario con objetos sin Propiedades Mat
     /// rebotara igual al fRebote
     /// </summary>
+
+    public SonidosPorArreglo audios;
     public CuentaRegresiva cuenta;
     public bool animar = false;
     public bool rebotarSiempre;
@@ -15,7 +17,7 @@ public class EsferaJugador : MonoBehaviour {
     public bool usarUnicoContacto;
 
     public GameObject trail;
-
+    
     public Collider2D col;
     public Rigidbody2D rb;
 
@@ -126,7 +128,7 @@ public class EsferaJugador : MonoBehaviour {
 
         if (anim != null && animar) anim.SetTrigger("Rebote");
         rebote = true;
-        ShakeControl.instance.ActivarShake(ShakeControl.FuerzaShake.Debil);
+       // ShakeControl.instance.ActivarShake(ShakeControl.FuerzaShake.Debil);
 
 
         PropiedadesMat ma = other.gameObject.GetComponent<PropiedadesMat>();
@@ -170,6 +172,12 @@ public class EsferaJugador : MonoBehaviour {
             particulasMuerte.CambiarColorInicial(Recursos.instance.setColorActual.color[2].tono);
             particulasMuerte.transform.position = transform.position;
             particulasMuerte.CrearBurst(50);
+        }
+
+        if (audios != null)
+        {
+            audios.ReproducirAudio(0, 0);
+            audios.ReproducirAudio(1, 1);
         }
 
         rb.simulated = false;
